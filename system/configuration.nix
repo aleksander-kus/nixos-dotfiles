@@ -41,12 +41,24 @@
   # };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  # services.xserver.desktopManager.plasma5.enable = true;
-  services.xserver.windowManager.xmonad = {
+  services.xserver = 
+  {
     enable = true;
-    enableContribAndExtras = true;
+    displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+    };
+    xrandrHeads = [
+      {
+        output = "Virtual-1";
+        primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1400x1050"
+        '';
+      }
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
