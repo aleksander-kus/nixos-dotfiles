@@ -64,11 +64,25 @@
   programs.alacritty.enable = true;
   programs.exa.enable = true;
   home.packages = with pkgs; [
-    alacritty
     brave
     btop
     krusader
     onlyoffice-bin
     git
+    neofetch
+    nitrogen
+    xdotool
+    volumeicon
+    dconf
+    arc-theme
+    gnome-breeze
   ];
+
+  xsession = {
+    enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+    };
+  };
 }
