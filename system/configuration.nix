@@ -73,6 +73,10 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
+  fonts.fonts = with pkgs; [
+    font-awesome
+    nerdfonts
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
