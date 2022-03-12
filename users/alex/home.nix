@@ -49,6 +49,75 @@
     source = ./xmobar/trayer-padding-icon.sh;
     executable = true;
   };
+  programs.alacritty.enable = true;
+  programs.alacritty.settings = {
+    window = {
+      padding = {
+        x = 6;
+        y = 6;
+      };
+      title = "Alacritty";
+      class = {
+        instance = "Alacritty";
+        general = "Alacritty";
+      };
+      opacity = 0.75;
+    };
+    scrolling.history = 5000;
+    font = {
+      normal = {
+        family = "MesloLGS Nerd Font Mono";
+        style = "Regular";
+      };
+      bold = {
+        family = "MesloLGS Nerd Font Mono";
+        style = "Bold";
+      };
+      italic = {
+        family = "MesloLGS Nerd Font Mono";
+        style = "Bold";
+      };
+      bold_italic = {
+        family = "MesloLGS Nerd Font Mono";
+        style = "Bold Italic";
+      };
+      size = 11.0;
+      offset = {
+        x = 0;
+        y = 1;
+      };
+    };
+    colors = {
+      primary = {
+        background = "0x282c34";
+        foreground = "0xbbc2cf";
+      };
+      selection = {
+        text =       "0xbbc2cf";
+        background = "0x3071db";
+      };
+      normal = {
+        black =   "0x1c1f24";
+        red =     "0xff6c6b";
+        green =   "0x98be65";
+        yellow =  "0xda8548";
+        blue =    "0x51afef";
+        magenta = "0xc678dd";
+        cyan =    "0x5699af";
+        white =   "0x202328";
+      };
+      bright = {
+        black =   "0x5b6268";
+        red =     "0xda8548";
+        green =   "0x4db5bd";
+        yellow =  "0xecbe7b";
+        blue =    "0x3071db";
+        magenta = "0xa9a1e1";
+        cyan =    "0x46d9ff";
+        white =   "0xdfdfdf";
+      };
+    };
+  };
   services.network-manager-applet.enable = true;
   services.trayer = {
     enable = true;
@@ -80,7 +149,6 @@
 
   services.redshift.enable = true;
   services.redshift.provider = "geoclue2";
-  programs.alacritty.enable = true;
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
