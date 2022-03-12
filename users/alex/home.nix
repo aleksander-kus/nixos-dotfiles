@@ -27,7 +27,7 @@
   gtk = {
     enable = true;
     theme.name = "Arc-Dark";
-    iconTheme.name = "Adwaita";
+    iconTheme.name = "Sardi-Arc";
   };
   programs.xmobar.enable = true;
   services.network-manager-applet.enable = true;
@@ -75,8 +75,8 @@
     volumeicon
     dconf
     arc-theme
-    gnome-breeze
     pavucontrol
+    libsForQt5.qtstyleplugin-kvantum
   ];
 
   xsession = {
