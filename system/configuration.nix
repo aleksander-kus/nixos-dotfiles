@@ -41,9 +41,25 @@
   # };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver = 
+  {
+    enable = true;
+    displayManager.sddm.enable = true;
+  # services.xserver.desktopManager.plasma5.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+    };
+    xrandrHeads = [
+      {
+        output = "Virtual-1";
+        primary = true;
+        monitorConfig = ''
+          Option "PreferredMode" "1400x1050"
+        '';
+      }
+    ];
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -61,7 +77,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-
   programs.fish.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alex = {
@@ -70,6 +85,10 @@
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
+  fonts.fonts = with pkgs; [
+    font-awesome
+    nerdfonts
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
