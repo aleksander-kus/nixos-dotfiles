@@ -29,7 +29,10 @@
     theme.name = "Arc-Dark";
     iconTheme.name = "Sardi-Arc";
   };
-  programs.xmobar.enable = true;
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
   services.network-manager-applet.enable = true;
   services.trayer = {
     enable = true;
@@ -77,6 +80,7 @@
     arc-theme
     pavucontrol
     libsForQt5.qtstyleplugin-kvantum
+    xmobar
   ];
 
   xsession = {
