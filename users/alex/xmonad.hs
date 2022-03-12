@@ -420,7 +420,7 @@ clickable ws = "<action=xdotool key super+"++i++">"++ws++"</action>"
 
 myStartupHook :: X ()
 myStartupHook = do
-          spawnOnce "/home/alex/.xmonad/scripts/autostart.sh"
+          -- spawnOnce "/home/alex/.xmonad/scripts/autostart.sh"
           spawnOn ( myWorkspaces !! 1 ) myBrowser
           spawnOn ( myWorkspaces !! 4 ) "alacritty -e btop"
           spawnOn ( myWorkspaces !! 3 ) myFileManager

@@ -76,13 +76,21 @@
     dconf
     arc-theme
     gnome-breeze
+    pavucontrol
   ];
 
   xsession = {
     enable = true;
+    initExtra = ''
+    ${pkgs.nitrogen}/bin/nitrogen --restore &
+    ${pkgs.pavucontrol}/bin/pavucontrol &
+    ${pkgs.volumeicon}/bin/volumeicon &
+    xsetroot -cursor_name left_ptr
+    '';
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
+      config = ./xmonad.hs;
     };
   };
 }
