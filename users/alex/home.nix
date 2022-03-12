@@ -49,7 +49,7 @@
     source = ./xmobar/trayer-padding-icon.sh;
     executable = true;
   };
-  home.file.".config/xmobar/haskell20.xpm".source = ./xmobar/haskell_20.xpm;
+  home.file.".config/xmobar/haskell_20.xpm".source = ./xmobar/haskell_20.xpm;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     window = {
