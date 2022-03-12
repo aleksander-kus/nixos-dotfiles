@@ -33,6 +33,15 @@
     enable = true;
     startInBackground = true;
   };
+  home.file.".config/Kvantum/kvantum.kvconfig".text = ''
+    [General]
+    theme=KvArcDark
+  '';
+  home.file.".config/qt5ct/qt5ct.conf".text = ''
+    [Appearance]
+    style=kvantum
+    icon_theme=Sardi-Arc
+  '';
   services.network-manager-applet.enable = true;
   services.trayer = {
     enable = true;
