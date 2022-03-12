@@ -42,6 +42,13 @@
     style=kvantum
     icon_theme=Sardi-Arc
   '';
+  home.file.".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
+  home.file.".config/xmobar/doom-one-xmobarrc".source = ./xmobar/doom-one-xmobarrc;
+  home.file.".config/xmobar/trayer-padding-icon.sh" = 
+  {
+    source = ./xmobar/trayer-padding-icon.sh;
+    executable = true;
+  };
   services.network-manager-applet.enable = true;
   services.trayer = {
     enable = true;
