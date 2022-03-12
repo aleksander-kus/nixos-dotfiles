@@ -20,6 +20,49 @@
   programs.home-manager.enable = true;
   programs.vscode.enable = true;
   
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  gtk = {
+    enable = true;
+    theme.name = "Arc-Dark";
+    iconTheme.name = "Adwaita";
+  };
+  programs.xmobar.enable = true;
+  services.network-manager-applet.enable = true;
+  services.trayer = {
+    enable = true;
+    settings = {
+      edge = "top";
+      align = "right";
+      SetDockType = true;
+      SetPartialStrut = true;
+      expand = true;
+      widthtype = "request";
+      height = 22;
+      transparent = true;
+      alpha = 0;
+      padding = 6;
+      monitor = 0;
+      tint = "0x1e2127";
+    };
+  };
+  services.picom = 
+  {
+    enable = true;
+    inactiveOpacity = "0.8";
+  };
+  services.udiskie = 
+  {
+    enable = true;
+    tray = "always";
+  };
+
+  services.redshift.enable = true;
+  services.redshift.provider = "geoclue2";
+  programs.alacritty.enable = true;
+  programs.exa.enable = true;
   home.packages = with pkgs; [
     alacritty
     brave
