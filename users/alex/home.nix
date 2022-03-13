@@ -27,7 +27,7 @@
   gtk = {
     enable = true;
     theme.name = "Arc-Dark";
-    iconTheme.name = "Sardi-Arc";
+    iconTheme.name = "Arc";
   };
   services.nextcloud-client = {
     enable = true;
@@ -40,7 +40,7 @@
   home.file.".config/qt5ct/qt5ct.conf".text = ''
     [Appearance]
     style=kvantum
-    icon_theme=Sardi-Arc
+    icon_theme=Arc
   '';
   home.file.".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
   home.file.".config/xmobar/doom-one-xmobarrc".source = ./xmobar/doom-one-xmobarrc;
@@ -163,6 +163,7 @@
     volumeicon
     dconf
     arc-theme
+    arc-icon-theme
     pavucontrol
     libsForQt5.qtstyleplugin-kvantum
     xmobar
