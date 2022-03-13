@@ -50,6 +50,7 @@
     executable = true;
   };
   home.file.".config/xmobar/haskell_20.xpm".source = ./xmobar/haskell_20.xpm;
+  home.file.".config/fish/config.fish".source = ./config.fish;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     window = {
@@ -159,7 +160,7 @@
     enable = true;
     userName = "Aleksander Kuś";
     userEmail = "01151536@pw.edu.pl";
-  }
+  };
 
   programs.exa.enable = true;
   home.packages = with pkgs; [
