@@ -96,7 +96,7 @@
 
   fonts.fonts = with pkgs; [
     font-awesome
-    nerdfonts
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
   ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
