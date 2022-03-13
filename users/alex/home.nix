@@ -148,8 +148,13 @@
     tray = "always";
   };
 
-  services.redshift.enable = true;
-  services.redshift.provider = "geoclue2";
+  services.redshift = 
+  {
+    enable = true;
+    provider = "geoclue2";
+    tray = true;
+  };
+  
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
@@ -168,7 +173,6 @@
     libsForQt5.qtstyleplugin-kvantum
     xmobar
     comma
-
   ];
 
   xsession = {
