@@ -155,13 +155,18 @@
     tray = true;
   };
   
+  programs.git = {
+    enable = true;
+    userName = "Aleksander Kuś";
+    userEmail = "01151536@pw.edu.pl";
+  }
+
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
     btop
     krusader
     onlyoffice-bin
-    git
     neofetch
     nitrogen
     xdotool
