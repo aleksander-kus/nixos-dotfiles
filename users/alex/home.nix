@@ -42,6 +42,7 @@
     style=kvantum
     icon_theme=Arc
   '';
+  home.file.".config/btop/btop.conf".text = "theme_background = False";
   home.file.".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
   home.file.".config/xmobar/doom-one-xmobarrc".source = ./xmobar/doom-one-xmobarrc;
   home.file.".config/xmobar/trayer-padding-icon.sh" = 
