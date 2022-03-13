@@ -167,6 +167,8 @@
     pavucontrol
     libsForQt5.qtstyleplugin-kvantum
     xmobar
+    comma
+
   ];
 
   xsession = {
