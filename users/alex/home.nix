@@ -144,7 +144,29 @@
   services.picom = 
   {
     enable = true;
+    shadow = false;
+    fade = true;
+    fadeSteps = [ "0.09" "0.09" ];
     inactiveOpacity = "0.8";
+    activeOpacity = "0.9";
+    menuOpacity = "0.8";
+    opacityRule = [
+      "75:name *?= 'xmobar'"
+      "80:class_g *?= 'Steam'"
+    ];
+    blur = true;
+    blurExclude = [
+      "class_g = 'Alacritty'"
+      "class_g = 'Code'"
+      "name *?= 'xmobar'"
+    ];
+    #experimentalBackends = true;
+    #vSync = true;
+    extraOptions = ''
+     mark-wmwin-focused = true;
+     mark-ovredir-focused = false;
+     detect-client-opacity = true;
+    '';
   };
   services.udiskie = 
   {
