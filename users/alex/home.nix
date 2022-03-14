@@ -145,8 +145,8 @@
   {
     enable = true;
     shadow = false;
-    fade = true;
-    fadeSteps = [ "0.09" "0.09" ];
+    fade = false;
+    #fadeSteps = [ "0.09" "0.09" ];
     inactiveOpacity = "0.8";
     activeOpacity = "0.9";
     menuOpacity = "0.8";
@@ -166,6 +166,20 @@
      mark-wmwin-focused = true;
      mark-ovredir-focused = false;
      detect-client-opacity = true;
+     corner-radius = 10.0;
+     round-borders = 1;
+     rounded-corners-exclude = [
+       "name = 'xmobar'",
+       "class_g = 'dmenu'",
+       "!WM_CLASS:s"
+     ];
+
+     transition-length = 300
+     transition-pow-x = 0.1
+     transition-pow-y = 0.1
+     transition-pow-w = 0.1
+     transition-pow-h = 0.1
+     size-transition = true
     '';
   };
   services.udiskie = 
