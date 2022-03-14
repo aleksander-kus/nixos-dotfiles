@@ -54,6 +54,7 @@
   home.file.".config/fish/config.fish".source = ./config.fish;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
+    env.TERM = "xterm-256color";
     window = {
       padding = {
         x = 6;
@@ -90,6 +91,7 @@
         y = 1;
       };
     };
+    draw_bold_text_with_bright_colors = true;
     colors = {
       primary = {
         background = "0x282c34";
