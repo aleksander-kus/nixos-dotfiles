@@ -106,6 +106,7 @@
     wget
     firefox
     ];
+    binsh = "${pkgs.dash}/bin/dash";
     etc."current-system-packages".text = 
       let
       packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
