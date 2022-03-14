@@ -12,7 +12,7 @@
     let
       system = "x86_64-linux";
       localOverlay = self: super: {
-        picom = super.picom.overrideAttrs (old: {
+        picom-jonaburg = super.picom.overrideAttrs (old: {
           src = super.fetchFromGitHub {
             owner = "jonaburg";
             repo = "picom";

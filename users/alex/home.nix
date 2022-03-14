@@ -144,6 +144,7 @@
   services.picom = 
   {
     enable = true;
+    package = pkgs.picom-jonaburg;
     shadow = false;
     fade = false;
     #fadeSteps = [ "0.09" "0.09" ];
