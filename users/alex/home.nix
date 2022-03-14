@@ -218,6 +218,7 @@
     libsForQt5.qtstyleplugin-kvantum
     xmobar
     comma
+    killall
   ];
 
   xsession = {
