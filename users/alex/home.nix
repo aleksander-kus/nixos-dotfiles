@@ -181,6 +181,14 @@
      transition-pow-w = 0.1
      transition-pow-h = 0.1
      size-transition = true
+
+     blur: {
+       method = "kawase";
+       strength = 7;
+       background = false;
+       background-frame = false;
+       background-fixed = false;
+     }
     '';
   };
   services.udiskie = 
