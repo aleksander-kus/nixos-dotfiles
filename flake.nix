@@ -20,11 +20,15 @@
             sha256 = "R+YUGBrLst6CpUgG9VCwaZ+LiBSDWTp0TLt1Ou4xmpQ=";
           };
         });
+        sardi-icons = super.callPackage ./packages/sardi-icons.nix {};
       };
       pkgs = import nixpkgs {
         inherit system;
         config = { allowUnfree = true; };
-        overlays = [ localOverlay ];
+        overlays = [ 
+          localOverlay 
+          #./packages/default.nix
+        ];
       };
   in
   {
