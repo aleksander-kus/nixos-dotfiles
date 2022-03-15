@@ -12,16 +12,20 @@ stdenv.mkDerivation rec {
     };
 
     nativeBuildInputs = [ gtk3 ];
+    
+    dontDropIconThemeCache = true;
 
     installPhase = ''
-      mkdir -p $out/share/icons/${pname}
-      cp -r * $out/share/icons/${pname}/
-      gtk-update-icon-cache $out/share/icons/${pname}/*
+      mkdir -p $out/share/icons/
+      cp -a * $out/share/icons/
+      for theme in $out/share/icons/*; do
+        gtk-update-icon-cache $theme
+      done
     '';
 
     meta = with lib; {
         description = "Sardi-icons icon theme";
         homepage = "https://github.com/erikdubois/Sardi";
-        platform = platforms.linux;
+        platforms = platforms.linux;
     };
 }
