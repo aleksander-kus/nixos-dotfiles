@@ -27,7 +27,7 @@
   gtk = {
     enable = true;
     theme.name = "Arc-Dark";
-    iconTheme.name = "Arc";
+    iconTheme.name = "Sardi-Arc";
   };
   services.nextcloud-client = {
     enable = true;
@@ -40,7 +40,7 @@
   home.file.".config/qt5ct/qt5ct.conf".text = ''
     [Appearance]
     style=kvantum
-    icon_theme=Arc
+    icon_theme=Sardi-Arc
   '';
   home.file.".config/btop/btop.conf".text = "theme_background = False";
   home.file.".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
@@ -220,6 +220,7 @@
     xmobar
     comma
     killall
+    sardi-icons
   ];
 
   xsession = {
