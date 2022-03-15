@@ -47,7 +47,7 @@
       mysystem = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ ./system/configuration.nix ];
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs pkgs; };
       };
     };
   };
