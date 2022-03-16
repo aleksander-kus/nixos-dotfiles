@@ -21,6 +21,7 @@
           };
         });
         sardi-icons = super.callPackage ./packages/sardi-icons.nix {};
+        #udiskie = super.callPackage ./packages/udiskie.nix {python = nixpkgs.legacyPackages.x86_64-linux.python310Packages;};
       };
       pkgs = import nixpkgs {
         inherit system;
@@ -50,7 +51,7 @@
           ./system/configuration.nix
           inputs.home-manager.nixosModules.home-manager
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs pkgs; };
       };
     };
   };
