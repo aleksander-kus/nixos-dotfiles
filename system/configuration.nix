@@ -86,11 +86,12 @@
   # services.xserver.libinput.enable = true;
 
   programs.fish.enable = true;
+  programs.zsh.enable = true;
   programs.qt5ct.enable = true;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.alex = {
     isNormalUser = true;
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
@@ -102,9 +103,13 @@
   # $ nix search wget
   environment = {
     systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    firefox
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      wget
+      firefox
+      git
+      zsh
+      papirus-icon-theme
+      udiskie
     ];
     binsh = "${pkgs.dash}/bin/dash";
     etc."current-system-packages".text = 
