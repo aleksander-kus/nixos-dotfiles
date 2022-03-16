@@ -210,6 +210,29 @@
     userEmail = "01151536@pw.edu.pl";
   };
 
+  programs.zsh = {
+    enable = true;
+    dotDir = ".config/zsh";
+    history.path = "${config.xdg.dataHome}/zsh/history";
+    history.extended = true;
+    history.ignoreDups = true;
+
+    enableCompletion = false;
+    enableSyntaxHighlighting = false;
+
+    envExtra = ''
+      ${builtins.readFile ./env.zsh}
+    '';
+    initExtraFirst = ''
+      source /home/alex/dotfiles/users/alex/main.zsh
+    '';
+
+    sessionVariables = {
+      ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
+      ZSH_DATA = "${config.xdg.dataHome}/zsh";
+    };
+  };
+
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
@@ -228,9 +251,18 @@
     xmobar
     comma
     killall
-    sardi-icons
+    #sardi-icons
+    fzf
+    zsh
+    zoxide
+    fd
+    ripgrep
   ];
 
+  home.sessionVariables = {
+    FZF_DEFAULT_COMMAND = "${pkgs.fd}/bin/fd --hidden --no-follow --exclude .git 2>/dev/null";
+    #FZF_DEFAULT_COMMAND = "${pkgs.ripgrep}/bin/rg ~ --files --hidden";
+  };
   xsession = {
     enable = true;
     initExtra = ''
