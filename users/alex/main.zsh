@@ -90,6 +90,8 @@ z4h bindkey z4h-cd-down    Shift+Down   # cd into a child directory
 
 ###: FUNCTIONS :================================================================
 
+export ZHS_AUTOSUGGEST_STRATEGY=(history completion)
+
 autoload -Uz zmv
 
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
