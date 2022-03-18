@@ -213,19 +213,45 @@
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    history.path = "${config.xdg.dataHome}/zsh/history";
-    history.extended = true;
-    history.ignoreDups = true;
+    history = {
+      path = "${config.xdg.dataHome}/zsh/history";
+      extended = true;
+      ignoreDups = true;
+      share = true;
+    };
 
-    enableCompletion = false;
-    enableSyntaxHighlighting = false;
+    enableCompletion = true;
+    enableAutosuggestions = true;
+    #enableSyntaxHighlighting = true;
+    autocd = true;
 
-    envExtra = ''
-      ${builtins.readFile ./env.zsh}
+    # envExtra = ''
+    #   #${builtins.readFile ./env.zsh}
+    # '';
+    # initExtraFirst = ''
+    #   #source /home/alex/dotfiles/users/alex/main.zsh
+    # '';
+
+    initExtra = ''
+
+        repeat $LINES print
+        if [[ -r "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+          source "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+        fi
+
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+        [[ ! -f /home/alex/.config/zsh/.p10k.zsh ]] || source /home/alex/.config/zsh/.p10k.zsh
     '';
-    initExtraFirst = ''
-      source /home/alex/dotfiles/users/alex/main.zsh
-    '';
+
+    plugins = [
+      {
+        name = "fast-syntax-highlighting";
+        file = "fast-syntax-highlighting.plugin.zsh";
+        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+      }
+    ];
+
 
     sessionVariables = {
       ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
@@ -257,6 +283,8 @@
     zoxide
     fd
     ripgrep
+    zsh-powerlevel10k
+    zsh-fast-syntax-highlighting
   ];
 
   home.sessionVariables = {
