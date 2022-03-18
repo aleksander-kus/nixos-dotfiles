@@ -70,19 +70,19 @@
     scrolling.history = 5000;
     font = {
       normal = {
-        family = "MesloLGS Nerd Font Mono";
+        family = "MesloLGS NF";
         style = "Regular";
       };
       bold = {
-        family = "MesloLGS Nerd Font Mono";
+        family = "MesloLGS NF";
         style = "Bold";
       };
       italic = {
-        family = "MesloLGS Nerd Font Mono";
+        family = "MesloLGS NF";
         style = "Bold";
       };
       bold_italic = {
-        family = "MesloLGS Nerd Font Mono";
+        family = "MesloLGS NF";
         style = "Bold Italic";
       };
       size = 11.0;
