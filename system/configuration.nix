@@ -112,7 +112,7 @@
       papirus-icon-theme
       udiskie
     ];
-    binsh = "${pkgs.dash}/bin/dash";
+    binsh = "${pkgs.bash}/bin/bash";
     etc."current-system-packages".text = 
       let
       packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
