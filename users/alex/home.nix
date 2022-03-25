@@ -51,7 +51,7 @@
     executable = true;
   };
   home.file.".config/xmobar/haskell_20.xpm".source = ./xmobar/haskell_20.xpm;
-  home.file.".config/fish/config.fish".source = ./config.fish;
+  #home.file.".config/fish/config.fish".source = ./config.fish;
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     env.TERM = "xterm-256color";
@@ -210,52 +210,139 @@
     userEmail = "01151536@pw.edu.pl";
   };
 
-  programs.zsh = {
+  programs.fish = {
     enable = true;
-    dotDir = ".config/zsh";
-    history = {
-      path = "${config.xdg.dataHome}/zsh/history";
-      extended = true;
-      ignoreDups = true;
-      share = true;
-    };
+    shellAliases = 
+    {
+      ".." = "cd .." ;
+      "..." = "cd ../..";
+      ".3" = "cd ../../..";
+      ".4" = "cd ../../../..";
+      ".5" = "cd ../../../../..";
 
-    enableCompletion = true;
-    enableAutosuggestions = true;
-    #enableSyntaxHighlighting = true;
-    autocd = true;
+      # vim and emacs
+      em = "/usr/bin/emacs -nw";
+      emacs = "emacsclient -c -a 'emacs'";
+      doomsync = "~/.emacs.d/bin/doom sync";
+      doomdoctor = "~/.emacs.d/bin/doom doctor";
+      doomupgrade = "~/.emacs.d/bin/doom upgrade";
+      doompurge = "~/.emacs.d/bin/doom purge";
 
-    # envExtra = ''
-    #   #${builtins.readFile ./env.zsh}
-    # '';
-    # initExtraFirst = ''
-    #   #source /home/alex/dotfiles/users/alex/main.zsh
-    # '';
+      # Changing "ls" to "exa"
+      ls = "exa --color=always --group-directories-first"; # my preferred listing;
+      l = "exa -alg --color=always --group-directories-first --git";  # long format;
+      ll = "exa -alg --color=always --group-directories-first --git";  # long format;
+      lt = "exa -aT --color=always --group-directories-first"; # tree listing
 
-    initExtra = ''
+      # get fastest mirrors
+      mirror = "sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist";
+      mirrors = "sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist";
 
-        repeat $LINES print
-        if [[ -r "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-        fi
+      # Colorize grep output (good for log files)
+      grep = "grep --color=auto";
 
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      # confirm before overwriting something
+      cp = "cp -i";
+      mv = "mv -i";
+      rm = "rm -i";
 
-        [[ ! -f /home/alex/.config/zsh/.p10k.zsh ]] || source /home/alex/.config/zsh/.p10k.zsh
-    '';
+      # defined functions above
+      bk = "backup";
+      re = "restore";
+      mkcd = "mkdir-cd";
+      ex = "extract";
 
-    plugins = [
-      {
-        name = "fast-syntax-highlighting";
-        file = "fast-syntax-highlighting.plugin.zsh";
-        src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-      }
-    ];
+      # recompile and restart xmonad in terminal
+      restart = "xmonad --recompile && xmonad --restart";
 
+      # adding flags
+      df = "df -h";                          # human-readable sizes;
+      du = "du -h";                          # human-readable sizes;
+      free = "free -m";                      # show sizes in MB;
 
-    sessionVariables = {
-      ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
-      ZSH_DATA = "${config.xdg.dataHome}/zsh";
+      ## get top process eating memory
+      psmem = "ps aux | sort -nr -k 4";
+      psmem10 = "ps aux | sort -nr -k 4 | head -10";
+
+      ## get top process eating cpu ##
+      pscpu = "ps aux | sort -nr -k 3";
+      pscpu10 = "ps aux | sort -nr -k 3 | head -10";
+
+      # get error messages from journalctl
+      jctl = "journalctl -p 3 -xb";
+
+      # gpg encryption
+      # verify signature for isos
+      gpg-check = "gpg2 --keyserver-options auto-key-retrieve --verify";
+      # receive the key of a developer
+      gpg-retrieve = "gpg2 --keyserver-options auto-key-retrieve --receive-keys";
+
+      # switch between shells
+      tobash = "sudo chsh $USER -s /bin/bash && echo 'Now log out.'";
+
+      # the terminal rickroll
+      rr = "curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash";
+
+      # Drive mounting
+      ma = "sudo mount -a";
+
+      # git
+      ga = "git add";
+      gaa = "git add .";
+      gau = "git add -u";
+      gai = "git add -i";
+      gap = "git add -p";
+      gb = "git branch -vv";
+      gbd = "git branch -d";
+      gbD = "git branch -D";
+      gc = "git commit -v";
+      gca = "git commit -v --amend";
+      gcn = "git commit -v --amend --no-edit";
+      gch = "git checkout";
+      gcb = "git checkout -b";
+      gcl = "git clone";
+      gcf = "git config --list";
+      gchm = "git checkout (__git.default_branch)";
+      gd = "git diff";
+      gdc = "git diff --cached";
+      gf = "git fetch";
+      gfnt = "git fetch --no-tags";
+      gfpp = "git fetch --prune --prune-tags";
+      gi = "git update-index --assume-unchanged";
+      gni = "git update-index --no-assume-unchanged";
+      gid = "git ignored";  # requires alias in git config
+      gia = "gitk --all";
+      gl = "git log --oneline --graph --all -n20";
+      glo = "git log --oneline";
+      glog = "git log --oneline --graph";
+      gloga = "git log --oneline --graph --all";
+      gln = "git log --oneline --graph --all -n";
+      gp = "git push";
+      gri = "git rebase --interactive --rebase-merges";
+      gs = "git status";
+      gt = "git tag";
+      gta = "git tag -a";
+
+      # xclip
+      xclip = "xclip -selection clipboard";
+
+      # doublecommander
+      dc = "doublecmd \$PWD &> /dev/null";
+
+      # quick folder access aliases
+      startsql = "sudo systemctl start mssql-server";
+      stopsql = "sudo systemctl stop mssql-server";
+
+      # kill brave before shutting down
+      reboot = "killall brave; command reboot";
+      poweroff = "killall brave; command poweroff";
+
+      # radio
+      melo = "mpv 'https://n-16-8.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx?audio=5?t=1646159496108' --volume=30";
+      zlote = "mpv 'https://radiostream.pl/tuba8936-1.mp3?cache=1646171079' --volume=30";
+
+      # reload fish config
+      reload = "source ~/.config/fish/config.fish";
     };
   };
 
