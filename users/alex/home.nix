@@ -346,6 +346,55 @@
     };
   };
 
+  # programs.zsh = {
+  #   enable = true;
+  #   dotDir = ".config/zsh";
+  #   history = {
+  #     path = "${config.xdg.dataHome}/zsh/history";
+  #     extended = true;
+  #     ignoreDups = true;
+  #     share = true;
+  #   };
+
+  #   enableCompletion = true;
+  #   enableAutosuggestions = true;
+  #   #enableSyntaxHighlighting = true;
+  #   autocd = true;
+
+  #   # envExtra = ''
+  #   #   #${builtins.readFile ./env.zsh}
+  #   # '';
+  #   # initExtraFirst = ''
+  #   #   #source /home/alex/dotfiles/users/alex/main.zsh
+  #   # '';
+
+  #   initExtra = ''
+
+  #       repeat $LINES print
+  #       if [[ -r "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+  #         source "''${XFG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+  #       fi
+
+  #       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+
+  #       [[ ! -f /home/alex/.config/zsh/.p10k.zsh ]] || source /home/alex/.config/zsh/.p10k.zsh
+  #   '';
+
+  #   plugins = [
+  #     {
+  #       name = "fast-syntax-highlighting";
+  #       file = "fast-syntax-highlighting.plugin.zsh";
+  #       src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
+  #     }
+  #   ];
+
+
+  #   sessionVariables = {
+  #     ZSH_CACHE = "${config.xdg.cacheHome}/zsh";
+  #     ZSH_DATA = "${config.xdg.dataHome}/zsh";
+  #   };
+  # };
+
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
