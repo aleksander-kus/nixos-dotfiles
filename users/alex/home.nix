@@ -23,6 +23,11 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    settings = 
+    {
+      add_newline = false;
+      line_break.disabled = true;
+    };
   };
   gtk = {
     enable = true;
@@ -220,36 +225,21 @@
       ".4" = "cd ../../../..";
       ".5" = "cd ../../../../..";
 
-      # vim and emacs
-      em = "/usr/bin/emacs -nw";
-      emacs = "emacsclient -c -a 'emacs'";
-      doomsync = "~/.emacs.d/bin/doom sync";
-      doomdoctor = "~/.emacs.d/bin/doom doctor";
-      doomupgrade = "~/.emacs.d/bin/doom upgrade";
-      doompurge = "~/.emacs.d/bin/doom purge";
-
       # Changing "ls" to "exa"
       ls = "exa --color=always --group-directories-first"; # my preferred listing;
       l = "exa -alg --color=always --group-directories-first --git";  # long format;
       ll = "exa -alg --color=always --group-directories-first --git";  # long format;
       lt = "exa -aT --color=always --group-directories-first"; # tree listing
 
-      # get fastest mirrors
-      mirror = "sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist";
-      mirrors = "sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist";
-
       # Colorize grep output (good for log files)
       grep = "grep --color=auto";
 
       # confirm before overwriting something
-      cp = "cp -i";
+      cp = "copy";
       mv = "mv -i";
-      rm = "rm -i";
+      rm = "remove";
 
       # defined functions above
-      bk = "backup";
-      re = "restore";
-      mkcd = "mkdir-cd";
       ex = "extract";
 
       # recompile and restart xmonad in terminal
@@ -412,15 +402,10 @@
     libsForQt5.qtstyleplugin-kvantum
     xmobar
     comma
-    killall
     sardi-icons
     fzf
-    zsh
-    zoxide
     fd
     ripgrep
-    zsh-powerlevel10k
-    zsh-fast-syntax-highlighting
   ];
 
   home.sessionVariables = {
