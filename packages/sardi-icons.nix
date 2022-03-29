@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchzip, gtk3 }:
+{ lib, stdenv, fetchzip, breeze-icons, gtk3, gnome-icon-theme, hicolor-icon-theme, papirus-icon-theme, numix-icon-theme, numix-icon-theme-circle, moka-icon-theme }:
 
 stdenv.mkDerivation rec {
     pname = "sardi-icons";
@@ -12,6 +12,16 @@ stdenv.mkDerivation rec {
     };
 
     nativeBuildInputs = [ gtk3 ];
+
+    propagatedBuildInputs = [
+      breeze-icons
+      gnome-icon-theme
+      hicolor-icon-theme
+      papirus-icon-theme
+      numix-icon-theme
+      numix-icon-theme-circle
+      moka-icon-theme
+    ];
     
     dontDropIconThemeCache = true;
 
