@@ -334,6 +334,34 @@
       # reload fish config
       reload = "source ~/.config/fish/config.fish";
     };
+    interactiveShellInit = ''
+      set -U fish_user_paths $fish_user_paths $HOME/.local/bin/ $HOME/bin
+      set fish_greeting                      # Supresses fish's intro message
+      set TERM "xterm-256color"              # Sets the terminal type
+      setenv EDITOR vim
+      setenv VISUAL vim
+      setenv MANPAGER '/bin/sh -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
+      setenv QT_QPA_PLATFORMTHEME "qt5ct"
+
+      if [ $fish_key_bindings = fish_vi_key_bindings ]
+        bind -Minsert ! __history_previous_command
+        bind -Minsert '$' __history_previous_command_arguments
+      else
+        bind ! __history_previous_command
+        bind '$' __history_previous_command_arguments
+      end
+
+      ### SSH AGENT ###
+      if test (pgrep ssh-agent | wc -l) -gt 1
+          killall ssh-agent
+      end
+      if test -z (pgrep ssh-agent)
+        eval (ssh-agent -c)
+        set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+        set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+        set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+      end
+    '';
   };
 
   # programs.zsh = {
