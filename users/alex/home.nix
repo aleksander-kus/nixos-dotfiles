@@ -413,7 +413,7 @@
     xmobar
     comma
     killall
-    #sardi-icons
+    sardi-icons
     fzf
     zsh
     zoxide
