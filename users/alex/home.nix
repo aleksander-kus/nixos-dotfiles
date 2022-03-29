@@ -362,6 +362,116 @@
         set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
       end
     '';
+    functions = {
+      fish_user_key_binding.body = "fish_vi_key_bindings";
+      __history_previous_command_arguments.body = ''
+        switch (commandline -t)
+        case "!"
+          commandline -t ""
+          commandline -f history-token-search-backward
+        case "*"
+          commandline -i '$'
+        end
+      '';
+      __history_previous_command.body = ''
+        switch (commandline -t)
+        case "!"
+          commandline -t $history[1]; commandline -f repaint
+        case "*"
+          commandline -i !
+        end
+      '';
+      copy.body = ''
+        set count (count $argv | tr -d \n)
+        if test "$count" = 2; and test -d "$argv[1]"
+          set from (echo $argv[1] | trim-right /)
+          set to (echo $argv[2])
+              command cp -r $from $to
+        else
+            command cp $argv
+        end
+      '';
+      remove.body = ''
+        set original_args $argv
+
+        argparse r f -- $argv
+
+        if not set -q _flag_r || set -q _flag_f
+            command rm $original_args
+            return
+        end
+
+        function confirm-remove --argument message
+            if not confirm $message
+                echo 'Cancelling.'
+                exit 1
+            end
+        end
+
+        for f in $argv
+            set gitdirs (find $f -name .git)
+            for gitdir in $gitdirs
+                confirm-remove "Remove .git directory $gitdir?"
+                command rm -rf $gitdir
+            end
+        end
+
+        command rm $original_args
+      '';
+      bak.body = "command cp $argv[1] $argv[1].bak";
+      rest.body = "command mv $argv[1] (echo $argv[1] | sed s/.bak//)";
+      mkcd.body = "mkdir -p $argv && cd $argv";
+      trim-right.body = ''sed "s|$char\$||"'';
+
+      #Git functions
+      "__git.current_branch" = {
+        description = "Output git's current branch name";
+        body = ''
+          begin
+            git symbolic-ref HEAD; or \
+            git rev-parse --short HEAD; or return
+          end 2>/dev/null | sed -e 's|^refs/heads/||'
+        '';
+      };
+
+      "__git.default_branch" = {
+        description = "Use init.defaultBranch if it's set and exists, otherwise use main if it exists. Falls back to master";
+        body = ''
+          command git rev-parse --git-dir &>/dev/null; or return
+          if set -l default_branch (command git config --get init.defaultBranch)
+            and command git show-ref -q --verify refs/heads/{$default_branch}
+            echo $default_branch
+          else if command git show-ref -q --verify refs/heads/main
+            echo main
+          else
+            echo master
+          end
+        '';
+      };
+      "__git.branch_has_wip" = {
+        description = "Returns 0 if branch has --wip--, otherwise 1";
+        body = ''git log -n 1 2>/dev/null | grep -qc "\-\-wip\-\-"'';
+      };
+      gignored = {
+        description = "list temporarily ignored files";
+        wraps = ''grep "^[[:lower:]]"'';
+        body = ''git ls-files -v | grep "^[[:lower:]]" $argv'';
+      };
+      gbage = {
+        description = "List local branches and display their age";
+        body = ''git for-each-ref --sort=committerdate refs/heads/ \
+          --format="%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))"
+        '';
+      };
+      gbda = {
+        description = "Delete all branches merged in current HEAD";
+        body = ''
+          git branch --merged | \
+          command grep -vE  '^\*|^\s*(master|main|develop)\s*$' | \
+          command xargs -n 1 git branch -d
+          '';
+      };
+    };
   };
 
   # programs.zsh = {
