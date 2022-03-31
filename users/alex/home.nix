@@ -523,6 +523,11 @@
   #   };
   # };
 
+  programs.rofi = {
+    enable = true;
+    terminal = "${pkgs.alacritty}/bin/alacritty";
+  };
+
   programs.exa.enable = true;
   home.packages = with pkgs; [
     brave
