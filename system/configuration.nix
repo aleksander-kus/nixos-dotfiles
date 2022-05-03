@@ -14,8 +14,17 @@
     experimental-features = nix-command flakes
   '';
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+  efi = {
+    canTouchEfiVariables = true;
+  };
+  grub = {
+     enable = true;
+     efiSupport = true;
+     device = "nodev";
+     useOSProber = true;
+  };
+};
 
   networking.hostName = "mysystem"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -27,7 +36,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp1s0.useDHCP = true;
+  #networking.interfaces.enp1s0.useDHCP = true;
   networking.networkmanager.enable = true;
 
   # Configure network proxy if necessary
@@ -46,6 +55,14 @@
   {
     enable = true;
     displayManager.sddm.enable = true;
+    libinput = {
+      enable = true;
+      touchpad = {
+        middleEmulation = false;
+        tapping = true;
+        naturalScrolling = false;
+      };
+    };
   # services.xserver.desktopManager.plasma5.enable = true;
     windowManager.xmonad = {
       enable = true;

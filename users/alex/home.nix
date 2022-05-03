@@ -90,7 +90,7 @@
         family = "MesloLGS NF";
         style = "Bold Italic";
       };
-      size = 11.0;
+      size = 11;
       offset = {
         x = 0;
         y = 1;
@@ -148,7 +148,7 @@
   };
   services.picom = 
   {
-    enable = true;
+    enable = false;
     package = pkgs.picom-jonaburg;
     shadow = false;
     fade = false;
@@ -523,6 +523,11 @@
   #   };
   # };
 
+  programs.java = {
+    enable = true;
+    package = pkgs.jdk8;
+  };
+
   programs.rofi = {
     enable = true;
     terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -549,6 +554,9 @@
     fzf
     fd
     ripgrep
+    polymc
+    dmenu
+    fusuma
   ];
 
   home.sessionVariables = {
