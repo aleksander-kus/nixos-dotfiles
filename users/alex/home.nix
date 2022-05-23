@@ -585,6 +585,7 @@ in
     python-with-my-packages
     ntfs3g
     libnotify
+    xclip
   ];
 
   home.sessionVariables = {
