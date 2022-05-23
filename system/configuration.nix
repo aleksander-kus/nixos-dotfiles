@@ -25,7 +25,11 @@
      useOSProber = true;
   };
 };
-
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.sddm.enableGnomeKeyring = true;
+  services.redshift.enable = true;
+  services.geoclue2.enable = true;
+  location.provider = "geoclue2";
   networking.hostName = "mysystem"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -50,17 +54,24 @@
   #   keyMap = "us";
   # };
 
+  services.tlp.enable = true;
+
+  virtualisation.docker.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver = 
   {
     enable = true;
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+    };
     libinput = {
       enable = true;
       touchpad = {
         middleEmulation = false;
         tapping = true;
         naturalScrolling = false;
+        additionalOptions = "Option \"TappingButtonMap\" \"lmr\"";
       };
     };
   # services.xserver.desktopManager.plasma5.enable = true;
@@ -73,23 +84,18 @@
         output = "Virtual-1";
         primary = true;
         monitorConfig = ''
-          Option "PreferredMode" "1400x1050"
+          Option  "PreferredMode" "1400x1050"
         '';
       }
     ];
-  };
-  services.geoclue2 = {
-    enable = true;
-    appConfig."redshift" = {
-      isAllowed = true;
-      isSystem = false;
-      users = [ ];
-    };
-  };
+    deviceSection = ''
+      Option "TearFree" "true"
+    '';
+  };  
   nixpkgs.config.allowUnfree = true;
 
   # Configure keymap in X11
-  # services.xserver.layout = "us";
+  services.xserver.layout = "pl";
   # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
@@ -98,6 +104,8 @@
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -109,7 +117,7 @@
   users.users.alex = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "input" "docker" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [
@@ -128,6 +136,8 @@
       zsh
       papirus-icon-theme
       udiskie
+      nextcloud-client
+      dotnet-sdk
     ];
     binsh = "${pkgs.bash}/bin/bash";
     etc."current-system-packages".text = 
