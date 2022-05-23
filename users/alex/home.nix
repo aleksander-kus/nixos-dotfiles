@@ -1,5 +1,15 @@
 { config, pkgs, ... }:
-
+let 
+  my-python-packages = python-packages: with python-packages; [ 
+    pandas
+    requests
+    numpy
+    numba
+    scipy
+     #other python packages you want
+  ];
+  python-with-my-packages = pkgs.python3.withPackages my-python-packages;
+in
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -56,7 +66,10 @@
     executable = true;
   };
   home.file.".config/xmobar/haskell_20.xpm".source = ./xmobar/haskell_20.xpm;
+  home.file.".config/nitrogen/bg-saved.cfg".source = ./bg-saved.cfg;
   #home.file.".config/fish/config.fish".source = ./config.fish;
+  #services.gnome-keyring.enable = true;
+  #services.gnome-keyring.components = [ "secrets" ];
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     env.TERM = "xterm-256color";
@@ -90,7 +103,7 @@
         family = "MesloLGS NF";
         style = "Bold Italic";
       };
-      size = 11;
+      size = 8;
       offset = {
         x = 0;
         y = 1;
@@ -148,11 +161,11 @@
   };
   services.picom = 
   {
-    enable = false;
+    enable = true;
     package = pkgs.picom-jonaburg;
     shadow = false;
     fade = false;
-    #fadeSteps = [ "0.09" "0.09" ];
+    fadeSteps = [ "0.09" "0.09" ];
     inactiveOpacity = "0.8";
     activeOpacity = "0.9";
     menuOpacity = "0.8";
@@ -160,13 +173,14 @@
       "75:name *?= 'xmobar'"
       "80:class_g *?= 'Steam'"
     ];
+    backend = "glx";
     blur = true;
     blurExclude = [
       "class_g = 'Alacritty'"
       "class_g = 'Code'"
       "name *?= 'xmobar'"
     ];
-    #experimentalBackends = true;
+    experimentalBackends = true;
     #vSync = true;
     extraOptions = ''
      mark-wmwin-focused = true;
@@ -188,10 +202,10 @@
      size-transition = true
 
      blur: {
-       method = "kawase";
-       strength = 7;
-       background = false;
-       background-frame = false;
+      method = "kawase";
+      strength = 7;
+      background = false;
+      background-frame = false;
        background-fixed = false;
      }
     '';
@@ -201,13 +215,6 @@
     enable = true;
     tray = "always";
   };
-
-  services.redshift = 
-  {
-    enable = true;
-    provider = "geoclue2";
-    tray = true;
-  };
   
   programs.git = {
     enable = true;
@@ -215,6 +222,8 @@
     userEmail = "01151536@pw.edu.pl";
   };
 
+  services.blueman-applet.enable = true;
+  services.dunst.enable = true;
   programs.fish = {
     enable = true;
     shellAliases = 
@@ -324,12 +333,12 @@
       stopsql = "sudo systemctl stop mssql-server";
 
       # kill brave before shutting down
-      reboot = "killall brave; command reboot";
-      poweroff = "killall brave; command poweroff";
+      reboot = "pkill brave; command reboot";
+      poweroff = "pkill brave; command poweroff";
 
       # radio
-      melo = "mpv 'https://n-16-8.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx?audio=5?t=1646159496108' --volume=30";
-      zlote = "mpv 'https://radiostream.pl/tuba8936-1.mp3?cache=1646171079' --volume=30";
+      melo = "mpv 'https://n-16-8.dcs.redcdn.pl/sc/o2/Eurozet/live/meloradio.livx?audio=5?t=1646159496108'";
+      zlote = "mpv 'https://radiostream.pl/tuba8936-1.mp3?cache=1646171079'";
 
       # reload fish config
       reload = "source ~/.config/fish/config.fish";
@@ -523,6 +532,7 @@
   #   };
   # };
 
+
   programs.java = {
     enable = true;
     package = pkgs.jdk8;
@@ -548,6 +558,9 @@
     arc-icon-theme
     pavucontrol
     libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.ark
+    libsForQt5.dolphin
+    libsForQt5.kdegraphics-thumbnailers
     xmobar
     comma
     sardi-icons
@@ -557,6 +570,21 @@
     polymc
     dmenu
     fusuma
+    brightnessctl
+    mlocate
+    zip
+    unzip
+    mpv
+    fsearch
+    celluloid
+    docker
+    docker-compose_2
+    jetbrains.rider
+    jetbrains.pycharm-community
+    dotnet-sdk
+    python-with-my-packages
+    ntfs3g
+    libnotify
   ];
 
   home.sessionVariables = {
@@ -569,6 +597,7 @@
     ${pkgs.nitrogen}/bin/nitrogen --restore &
     ${pkgs.pavucontrol}/bin/pavucontrol &
     ${pkgs.volumeicon}/bin/volumeicon &
+    ${pkgs.fusuma}/bin/fusuma -c "/home/alex/.config/fusuma/config.yml" &
     xsetroot -cursor_name left_ptr
     '';
     windowManager.xmonad = {
