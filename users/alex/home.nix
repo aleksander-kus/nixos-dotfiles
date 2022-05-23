@@ -545,47 +545,47 @@ in
 
   programs.exa.enable = true;
   home.packages = with pkgs; [
-    brave
-    btop
-    krusader
-    onlyoffice-bin
-    neofetch
-    nitrogen
-    xdotool
-    volumeicon
-    dconf
-    arc-theme
     arc-icon-theme
-    pavucontrol
-    libsForQt5.qtstyleplugin-kvantum
+    arc-theme
+    brave
+    brightnessctl
+    btop
+    celluloid
+    comma
+    dconf
+    dmenu
+    docker
+    docker-compose_2
+    dotnet-sdk
+    fd
+    fsearch
+    fusuma
+    fzf
+    jetbrains.pycharm-community
+    jetbrains.rider
+    krusader
+    libnotify
     libsForQt5.ark
     libsForQt5.dolphin
     libsForQt5.kdegraphics-thumbnailers
-    xmobar
-    comma
-    sardi-icons
-    fzf
-    fd
-    ripgrep
-    polymc
-    dmenu
-    fusuma
-    brightnessctl
+    libsForQt5.qtstyleplugin-kvantum
     mlocate
-    zip
-    unzip
     mpv
-    fsearch
-    celluloid
-    docker
-    docker-compose_2
-    jetbrains.rider
-    jetbrains.pycharm-community
-    dotnet-sdk
-    python-with-my-packages
+    neofetch
+    nitrogen
     ntfs3g
-    libnotify
+    onlyoffice-bin
+    pavucontrol
+    polymc
+    python-with-my-packages
+    ripgrep
+    sardi-icons
+    unzip
+    volumeicon
     xclip
+    xdotool
+    xmobar
+    zip
   ];
 
   home.sessionVariables = {
