@@ -24,7 +24,7 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.05";
+  home.stateVersion = "23.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -39,11 +39,7 @@ in
       line_break.disabled = true;
     };
   };
-  gtk = {
-    enable = true;
-    theme.name = "Arc-Dark";
-    iconTheme.name = "Sardi-Arc";
-  };
+
   services.nextcloud-client = {
     enable = true;
     startInBackground = true;
@@ -58,18 +54,7 @@ in
     icon_theme=Sardi-Arc
   '';
   home.file.".config/btop/btop.conf".text = "theme_background = False";
-  home.file.".config/xmobar/xmobarrc".source = ./xmobar/xmobarrc;
-  home.file.".config/xmobar/doom-one-xmobarrc".source = ./xmobar/doom-one-xmobarrc;
-  home.file.".config/xmobar/trayer-padding-icon.sh" = 
-  {
-    source = ./xmobar/trayer-padding-icon.sh;
-    executable = true;
-  };
-  home.file.".config/xmobar/haskell_20.xpm".source = ./xmobar/haskell_20.xpm;
-  home.file.".config/nitrogen/bg-saved.cfg".source = ./bg-saved.cfg;
-  #home.file.".config/fish/config.fish".source = ./config.fish;
-  #services.gnome-keyring.enable = true;
-  #services.gnome-keyring.components = [ "secrets" ];
+
   programs.alacritty.enable = true;
   programs.alacritty.settings = {
     env.TERM = "xterm-256color";
@@ -83,7 +68,7 @@ in
         instance = "Alacritty";
         general = "Alacritty";
       };
-      opacity = 0.75;
+      opacity = 1;
     };
     scrolling.history = 5000;
     font = {
@@ -103,7 +88,7 @@ in
         family = "MesloLGS NF";
         style = "Bold Italic";
       };
-      size = 8;
+      size = 10;
       offset = {
         x = 0;
         y = 1;
@@ -141,80 +126,6 @@ in
       };
     };
   };
-  services.network-manager-applet.enable = true;
-  services.trayer = {
-    enable = true;
-    settings = {
-      edge = "top";
-      align = "right";
-      SetDockType = true;
-      SetPartialStrut = true;
-      expand = true;
-      widthtype = "request";
-      height = 22;
-      transparent = true;
-      alpha = 0;
-      padding = 6;
-      monitor = 0;
-      tint = "0x1e2127";
-    };
-  };
-  services.picom = 
-  {
-    enable = true;
-    package = pkgs.picom-jonaburg;
-    shadow = false;
-    fade = false;
-    fadeSteps = [ "0.09" "0.09" ];
-    inactiveOpacity = "0.8";
-    activeOpacity = "0.9";
-    menuOpacity = "0.8";
-    opacityRule = [
-      "75:name *?= 'xmobar'"
-      "80:class_g *?= 'Steam'"
-    ];
-    backend = "glx";
-    blur = true;
-    blurExclude = [
-      "class_g = 'Alacritty'"
-      "class_g = 'Code'"
-      "name *?= 'xmobar'"
-    ];
-    experimentalBackends = true;
-    #vSync = true;
-    extraOptions = ''
-     mark-wmwin-focused = true;
-     mark-ovredir-focused = false;
-     detect-client-opacity = true;
-     corner-radius = 10.0;
-     round-borders = 1;
-     rounded-corners-exclude = [
-       "name = 'xmobar'",
-       "class_g = 'dmenu'",
-       "!WM_CLASS:s"
-     ];
-
-     transition-length = 300
-     transition-pow-x = 0.1
-     transition-pow-y = 0.1
-     transition-pow-w = 0.1
-     transition-pow-h = 0.1
-     size-transition = true
-
-     blur: {
-      method = "kawase";
-      strength = 7;
-      background = false;
-      background-frame = false;
-       background-fixed = false;
-     }
-    '';
-  };
-  services.udiskie = 
-  {
-    enable = true;
-    tray = "always";
-  };
   
   programs.git = {
     enable = true;
@@ -222,8 +133,6 @@ in
     userEmail = "01151536@pw.edu.pl";
   };
 
-  services.blueman-applet.enable = true;
-  services.dunst.enable = true;
   programs.fish = {
     enable = true;
     shellAliases = 
@@ -533,78 +442,31 @@ in
   # };
 
 
-  programs.java = {
-    enable = true;
-    package = pkgs.jdk8;
-  };
-
-  programs.rofi = {
-    enable = true;
-    terminal = "${pkgs.alacritty}/bin/alacritty";
-  };
+  programs.java.enable = true;
+  programs.java.package = pkgs.jdk17;
 
   programs.exa.enable = true;
   home.packages = with pkgs; [
-    arc-icon-theme
-    arc-theme
-    brave
-    brightnessctl
     btop
-    celluloid
     comma
     dconf
-    dmenu
-    docker
-    docker-compose_2
-    dotnet-sdk
-    fd
-    fsearch
-    fusuma
-    fzf
-    jetbrains.pycharm-community
-    jetbrains.rider
-    krusader
-    libnotify
-    libsForQt5.ark
-    libsForQt5.dolphin
-    libsForQt5.kdegraphics-thumbnailers
-    libsForQt5.qtstyleplugin-kvantum
     mlocate
-    mpv
     neofetch
-    nitrogen
     ntfs3g
     onlyoffice-bin
-    pavucontrol
-    polymc
     python-with-my-packages
-    ripgrep
-    sardi-icons
     unzip
-    volumeicon
-    xclip
-    xdotool
-    xmobar
     zip
+    firefox
+    corefonts
+    teams
+    prismlauncher
+    nextcloud-client
+    qdirstat
   ];
 
   home.sessionVariables = {
     FZF_DEFAULT_COMMAND = "${pkgs.fd}/bin/fd --hidden --no-follow --exclude .git 2>/dev/null";
     #FZF_DEFAULT_COMMAND = "${pkgs.ripgrep}/bin/rg ~ --files --hidden";
-  };
-  xsession = {
-    enable = true;
-    initExtra = ''
-    ${pkgs.nitrogen}/bin/nitrogen --restore &
-    ${pkgs.pavucontrol}/bin/pavucontrol &
-    ${pkgs.volumeicon}/bin/volumeicon &
-    ${pkgs.fusuma}/bin/fusuma -c "/home/alex/.config/fusuma/config.yml" &
-    xsetroot -cursor_name left_ptr
-    '';
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      config = ./xmonad.hs;
-    };
   };
 }

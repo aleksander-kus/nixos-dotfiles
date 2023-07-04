@@ -33,19 +33,22 @@
       };
   in
   {
+    defaultPackage.x86_64-linux = home-manager.defaultPackage.x86_64-linux;
     homeConfigurations = {
       alex = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit system;
-        extraSpecialArgs = {inherit inputs self pkgs;};
-        username = "alex";
-        homeDirectory = "/home/alex";
-        configuration = ./users/alex/home.nix;
-        stateVersion = "22.05";
+        inherit pkgs;
+        modules = [ ./users/alex/home.nix ];
+        # inherit system pkgs;
+        # extraSpecialArgs = {inherit inputs self pkgs;};
+        # username = "alex";
+        # homeDirectory = "/home/alex";
+        # configuration = ./users/alex/home.nix;
+        # stateVersion = "23.05";
       };
     };
 
     nixosConfigurations = {
-      mysystem = inputs.nixpkgs.lib.nixosSystem {
+      ryszard-bis = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
           ./system/configuration.nix
