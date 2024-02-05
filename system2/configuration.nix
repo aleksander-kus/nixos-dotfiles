@@ -25,6 +25,7 @@
      useOSProber = true;
   };
 };
+
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
   services.redshift.enable = true;
@@ -117,7 +118,7 @@
   users.users.alex = {
     isNormalUser = true;
     shell = pkgs.fish;
-    extraGroups = [ "wheel" "input" "docker" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "input" "docker" "dialout" ]; # Enable ‘sudo’ for the user.
   };
 
   fonts.fonts = with pkgs; [

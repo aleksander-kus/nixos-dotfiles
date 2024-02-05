@@ -6,6 +6,13 @@ let
     numpy
     numba
     scipy
+    scikit-learn
+    jupyter
+    notebook
+    matplotlib
+    keras
+    tensorflow
+    seaborn
      #other python packages you want
   ];
   python-with-my-packages = pkgs.python3.withPackages my-python-packages;
@@ -94,7 +101,7 @@ in
         y = 1;
       };
     };
-    draw_bold_text_with_bright_colors = true;
+    colors.draw_bold_text_with_bright_colors = true;
     colors = {
       primary = {
         background = "0x282c34";
@@ -445,24 +452,26 @@ in
   programs.java.enable = true;
   programs.java.package = pkgs.jdk17;
 
-  programs.exa.enable = true;
+  programs.eza.enable = true;
   home.packages = with pkgs; [
     btop
+    bazecor
     comma
     dconf
     mlocate
     neofetch
-    ntfs3g
     onlyoffice-bin
     python-with-my-packages
     unzip
     zip
     firefox
     corefonts
-    teams
+    teams-for-linux
     prismlauncher
     nextcloud-client
     qdirstat
+    teamviewer
+    whatsapp-for-linux
   ];
 
   home.sessionVariables = {

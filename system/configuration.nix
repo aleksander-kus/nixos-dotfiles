@@ -15,8 +15,18 @@
   '';
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+    };
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      useOSProber = true;
+    };
+  };
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "ryszard-bis"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -85,7 +95,7 @@
     #media-session.enable = true;
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     font-awesome
     meslo-lgs-nf
     #(nerdfonts.override { fonts = [ "Meslo" ]; })
@@ -103,18 +113,41 @@
   users.users.alex = {
     isNormalUser = true;
     description = "alex";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     shell = pkgs.fish;
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  security.wrappers.sunshine = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_sys_admin+p";
+      source = "${pkgs.sunshine}/bin/sunshine";
+  };
+
+  systemd.user.services.sunshine = {
+    description = "sunshine";
+    wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${config.security.wrapperDir}/sunshine";
+    };
+  };
+
+  services.teamviewer.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     git
+    wineWowPackages.waylandFull
+    patchelf
+    zlib
+    sunshine
+    grub2
+    gparted
   #  wget
   ];
 
