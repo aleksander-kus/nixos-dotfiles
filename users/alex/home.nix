@@ -449,8 +449,8 @@ in
   # };
 
 
-  programs.java.enable = true;
-  programs.java.package = pkgs.jdk17;
+  # programs.java.enable = true;
+  # programs.java.package = pkgs.zulu8;
 
   programs.eza.enable = true;
   home.packages = with pkgs; [
@@ -467,7 +467,7 @@ in
     firefox
     corefonts
     teams-for-linux
-    prismlauncher
+    (prismlauncher.override { jdks = [ jdk8 jdk17 jdk19 ]; })
     nextcloud-client
     qdirstat
     teamviewer
